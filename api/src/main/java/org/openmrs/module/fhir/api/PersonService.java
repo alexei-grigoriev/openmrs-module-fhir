@@ -13,61 +13,69 @@
  */
 package org.openmrs.module.fhir.api;
 
+import ca.uhn.fhir.model.dstu2.resource.Person;
+import ca.uhn.fhir.rest.server.exceptions.NotModifiedException;
+import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
+
 import java.util.List;
 
-import ca.uhn.fhir.model.dstu2.resource.Person;
-
 public interface PersonService {
-	
-	/**
-	 * Get fhir perso resource by uuid
-	 *
-	 * @param id uuid of the patient
-	 * @return fhir patient resource and will return null if patient not found for the given id
-	 */
-	Person getPerson(String id);
-	
-	/**
-	 * Search persons by uuid
-	 *
-	 * @param id the uuid to be search
-	 * @return fhir patient resource list
-	 */
-	List<Person> searchPersonById(String id);
-	
-	/**
-	 * Search all persons for given attributes
-	 *
-	 * @param name Name of person to search
-	 * @param birthYear The year of birth to restrict
-	 * @param gender The gender field to search on (Typically just "M" or "F")
-	 * @return persons list
-	 */
-	List<Person> searchPersons(String name, Integer birthYear, String gender);
-	
-	/**
-	 * Search persons by name
-	 *
-	 * @param name the name to be search
-	 * @return fhir persons resource list
-	 */
-	List<Person> searchPersonsByName(String name);
-	
-	/**
-	 * creates a oms Person from FHIR personn
-	 *
-	 * @param person
-	 * @return
-	 */
-	Person createFHIRPerson(Person person);
-	
-	/**
-	 * update a OpenMRS Person from FHIR Person
-	 *
-	 * @param person the FHIR representation of the {@link}Person to be updated
-	 * @param theId the uuid of the Person to be updated
-	 * @return the updated FHIR {@link}Person Resource
-	 */
-	Person updateFHIRPerson(Person person, String theId);
-	
+
+    /**
+     * Get fhir perso resource by uuid
+     *
+     * @param id uuid of the patient
+     * @return fhir patient resource and will return null if patient not found for the given id
+     */
+    Person getPerson(String id);
+
+    /**
+     * Search persons by uuid
+     *
+     * @param id the uuid to be search
+     * @return fhir patient resource list
+     */
+    List<Person> searchPersonById(String id);
+
+    /**
+     * Search all persons for given attributes
+     *
+     * @param name      Name of person to search
+     * @param birthYear The year of birth to restrict
+     * @param gender    The gender field to search on (Typically just "M" or "F")
+     * @return persons list
+     */
+    List<Person> searchPersons(String name, Integer birthYear, String gender);
+
+    /**
+     * Search persons by name
+     *
+     * @param name the name to be search
+     * @return fhir persons resource list
+     */
+    List<Person> searchPersonsByName(String name);
+
+    /**
+     * creates a oms Person from FHIR personn
+     *
+     * @param person
+     * @return
+     */
+    Person createFHIRPerson(Person person);
+
+    /**
+     * update a OpenMRS Person from FHIR Person
+     *
+     * @param person the FHIR representation of the {@link}Person to be updated
+     * @param theId  the uuid of the Person to be updated
+     * @return the updated FHIR {@link}Person Resource
+     */
+    Person updateFHIRPerson(Person person, String theId);
+
+    /**
+     * makes a Person retired
+     *
+     * @param theId the uuid of the Person to retire
+     */
+    void retirePerson(String theId) throws ResourceNotFoundException, NotModifiedException;
 }
